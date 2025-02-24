@@ -168,6 +168,7 @@ pub const IDX_DATA3: usize = 48;
 pub const IDX_DATA4: usize = 49;
 pub const IDX_SRC1: usize = 50;
 pub const IDX_SRC2: usize = 51;
+pub const IDX_DATA_FOLD: usize = 55;
 
 pub const MAP_LEVEL: usize = 3;
 pub const L3_SIZE: usize = GRANULE_SIZE;
