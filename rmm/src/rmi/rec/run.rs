@@ -9,17 +9,17 @@ use autopadding::*;
 #[repr(C)]
 #[derive(Default, Copy, Clone)]
 pub struct Run {
-    entry: Entry,
+    pub entry: Entry,
     exit: Exit,
 }
 const_assert_eq!(core::mem::size_of::<Run>(), GRANULE_SIZE);
 
 pad_struct_and_impl_default!(
-struct Entry {
-    0x0   flags: u64,
-    0x200 gprs: [u64; NR_GPRS],
-    0x300 gicv3_hcr: u64,
-    0x308 gicv3_lrs: [u64; NR_GIC_LRS],
+pub struct Entry {
+    0x0   pub flags: u64,
+    0x200 pub gprs: [u64; NR_GPRS],
+    0x300 pub gicv3_hcr: u64,
+    0x308 pub gicv3_lrs: [u64; NR_GIC_LRS],
     0x800 => @END,
 }
 );
@@ -208,7 +208,7 @@ pub const REC_ENTRY_FLAG_TRAP_WFE: u64 = 1 << 3;
 #[allow(dead_code)]
 pub const REC_ENTRY_FLAG_RIPAS_RESPONSE: u64 = 1 << 4;
 pub const NR_GPRS: usize = 31;
-const NR_GIC_LRS: usize = 16;
+pub const NR_GIC_LRS: usize = 16;
 
 impl Run {
     pub fn verify_compliance(&self) -> Result<(), Error> {
