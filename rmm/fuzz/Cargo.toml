@@ -122,3 +122,87 @@ path = "fuzz_targets/rmi_rtt_fold_fuzz.rs"
 test = false
 doc = false
 bench = false
+
+[[bin]]
+name = "rsi_psci_features_fuzz"
+path = "fuzz_targets/rsi_psci_features_fuzz.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "rsi_measurement_read_fuzz"
+path = "fuzz_targets/rsi_measurement_read_fuzz.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "rsi_measurement_extend_fuzz"
+path = "fuzz_targets/rsi_measurement_extend_fuzz.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "rsi_realm_config_fuzz"
+path = "fuzz_targets/rsi_realm_config_fuzz.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "rsi_attestation_fuzz"
+path = "fuzz_targets/rsi_attestation_fuzz.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "rsi_ipa_state_get_fuzz"
+path = "fuzz_targets/rsi_ipa_state_get_fuzz.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "rsi_psci_cpu_on_fuzz"
+path = "fuzz_targets/rsi_psci_cpu_on_fuzz.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "rsi_psci_affinity_info_fuzz"
+path = "fuzz_targets/rsi_psci_affinity_info_fuzz.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "rsi_host_call_fuzz"
+path = "fuzz_targets/rsi_host_call_fuzz.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "rsi_abi_version_fuzz"
+path = "fuzz_targets/rsi_abi_version_fuzz.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "rmi_rec_enter_exit_fuzz"
+path = "fuzz_targets/rmi_rec_enter_exit_fuzz.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "rmi_rec_enter_data_abort_fuzz"
+path = "fuzz_targets/rmi_rec_enter_data_abort_fuzz.rs"
+test = false
+doc = false
+bench = false

@@ -2,6 +2,9 @@ use crate::event::Context;
 use crate::event::Mainloop;
 use crate::granule::GRANULE_SIZE;
 use crate::monitor::Monitor;
+use crate::rec::Rec;
+use crate::rmi::rec::run::Run;
+use crate::rec::context::set_reg;
 use crate::rmi::realm::Params as RealmParams;
 use crate::rmi::rec::params::Params as RecParams;
 use crate::rmi::*;
@@ -22,6 +25,35 @@ pub fn rmi<const COMMAND: usize>(arg: &[usize]) -> Vec<usize> {
         ctx.ret[0] = code.into();
     }
     ctx.ret.to_vec()
+}
+
+pub fn rsi<const COMMAND: usize>(arg: &[usize], rec: &mut Rec<'_>, run: &mut Run) -> Vec<usize> {
+    let monitor = Monitor::new();
+
+    let mut ctx = Context::new(COMMAND);
+    ctx.init_arg(&[]);
+    ctx.init_ret(&[0; 8]);
+
+    set_reg(rec, 0, COMMAND).unwrap();
+
+    for idx in 0..arg.len() {
+        set_reg(rec, idx + 1, arg[idx]).unwrap();
+    }
+
+    let handler = monitor.rsi.on_event.get(&COMMAND).unwrap();
+    if let Err(code) = handler(&ctx.arg, &mut ctx.ret, &monitor, rec, run) {
+        ctx.ret[0] = code.into();
+    }
+    ctx.ret.to_vec()
+}
+
+pub fn emulate_realm_exit(realm_exit_res: [usize; 4], rec: &mut Rec<'_>, run: &mut Run) {
+    use crate::rmi::rec::exit::handle_realm_exit;
+
+    let monitor = Monitor::new();
+
+    handle_realm_exit(realm_exit_res, &monitor, rec, run)
+        .unwrap_or((false, 0));
 }
 
 pub fn extract_bits(value: usize, start: u32, end: u32) -> usize {
@@ -314,6 +346,14 @@ pub mod mock {
 
             let ret = rmi::<REALM_ACTIVATE>(&[rd]);
             assert_eq!(ret[0], SUCCESS);
+
+            rd
+        }
+
+        pub fn realm_unactivated_setup() -> usize {
+            let rd = realm_create();
+            rec_create(rd, IDX_REC1, IDX_REC1_PARAMS, IDX_REC1_AUX);
+            rec_create(rd, IDX_REC2, IDX_REC2_PARAMS, IDX_REC2_AUX);
 
             rd
         }

@@ -263,7 +263,7 @@ pub fn set_event_handler(rmi: &mut RmiHandle) {
                 }
             }
 
-            #[cfg(any(miri, test, fuzzing))]
+            #[cfg(any(miri, test))]
             {
                 use crate::test_utils::mock;
                 mock::realm::setup_psci_complete(&mut rec, &mut run);
